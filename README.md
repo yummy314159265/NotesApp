@@ -1,2 +1,2 @@
 # NotesApp
-im taking notes
+Take note! We're a notes app.
