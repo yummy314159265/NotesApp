@@ -20,13 +20,38 @@ namespace RepoLayer
             _context = context;
         }
 
+        // CRUD NOTEBOOK
+
+        public async Task<Notebook?> CreateNotebookAsync(CreateNotebookDto request, string auth0id)
+        {
+            User u = await _context.Users.SingleAsync(user => user.UserId == auth0id);
+
+            Notebook n = new Notebook()
+            {
+                FkUserId = auth0id,
+                Name = request.Name
+            };
+
+            await _context.Notebooks.AddAsync(n);
+
+            int ret = await _context.SaveChangesAsync();
+
+            if (ret == 0)
+            {
+                return null;
+            }
+
+            return n;
+        }
+
+        // CRUD PROFILE
+
         public async Task<Profile?> CreateProfileAsync(CreateProfileDto request, string auth0id)
         {
             User u = await _context.Users.SingleAsync(user => user.UserId == auth0id);
             
             Profile p = new Profile()
             {
-                FkUser = u,
                 FkUserId = auth0id,
                 Name = request.Name,
                 Email = request.Email,

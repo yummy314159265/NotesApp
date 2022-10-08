@@ -8,9 +8,14 @@ namespace BusinessLayer
 {
     public interface INotesAppBusinessLayer
     {
+
+        // CRUD Profiles
         Task<Profile?> GetUserProfileAsync(UserIdDto userID);
         Task<Profile?> UpdateProfileAsync(UpdateProfileDto request, string auth0id);
         Task<bool> DeleteProfileAsync(string auth0id);
         Task<Profile?> CreateProfileAsync(CreateProfileDto request, string auth0id);
+        Task<Notebook?> CreateNotebookAsync(CreateNotebookDto request, string auth0id);
+
+        // CRUD Notebooks
     }
 }
