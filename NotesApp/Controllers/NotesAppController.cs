@@ -21,6 +21,8 @@ namespace NotesApp.Controllers
             this._bus = bus;
         }
 
+        // CRUD PROFILE
+
         [HttpPost("create-profile")]
         public async Task<ActionResult> CreateProfileAsync(CreateProfileDto request)
         {
@@ -29,7 +31,7 @@ namespace NotesApp.Controllers
                 return BadRequest(request);
             }
 
-            if(User.Identity?.Name == null)
+            if (User.Identity?.Name == null)
             {
                 return Unauthorized(request);
             }
@@ -43,7 +45,7 @@ namespace NotesApp.Controllers
                 return Conflict(request);
             }
 
-            return Ok(p);
+            return Created("", p);
         }
 
         [HttpPost("get-user-profile")]
@@ -68,7 +70,7 @@ namespace NotesApp.Controllers
         [HttpPut("update-profile")]
         public async Task<ActionResult> UpdateProfileAsync(UpdateProfileDto request)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(request);
             }
@@ -93,12 +95,12 @@ namespace NotesApp.Controllers
         [HttpDelete("delete-profile")]
         public async Task<ActionResult> DeleteProfileAsync()
         {
-            if(ModelState.IsValid == false)
+            if (ModelState.IsValid == false)
             {
                 return BadRequest(false);
             }
 
-            if(User.Identity?.Name == null)
+            if (User.Identity?.Name == null)
             {
                 return Unauthorized(false);
             }
@@ -113,6 +115,33 @@ namespace NotesApp.Controllers
             }
 
             return Ok(true);
+        }
+
+        // CRUD NOTEBOOK
+
+        [HttpPost("create-notebook")]
+        public async Task<ActionResult> CreateNotebookAsync(CreateNotebookDto request)
+        {
+            if (ModelState.IsValid == false)
+            {
+                return BadRequest(request);
+            }
+
+            if (User.Identity?.Name == null)
+            {
+                return Unauthorized(request);
+            }
+
+            string auth0id = User.Identity.Name;
+
+            Notebook? n = await this._bus.CreateNotebookAsync(request, auth0id);
+
+            if (n == null)
+            {
+                return Conflict (request);
+            }
+
+            return Created("", n);
         }
     }
 }
