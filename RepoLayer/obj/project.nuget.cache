@@ -1,15 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "mHTSCMVHdZ4T5Spe2SBSCJ13hkln85piRPAt+AaRzKoH2mZhA1YTokUD58GPBsgoiHMynr0W0RbpCzO8DQuk9g==",
+  "dgSpecHash": "1cs6aD80KEPkR4pfrvgw4QFNLmA7PgxGWFCIqwLwqLKPSeYJW1rZt0P3p/F99LynXKe5gOivg5MKwzehNhsKcQ==",
   "success": true,
   "projectFilePath": "/home/rodin/Documents/code/projects/NotesAppProject/RepoLayer/RepoLayer.csproj",
   "expectedPackageFiles": [
+    "/home/rodin/.nuget/packages/humanizer.core/2.8.26/humanizer.core.2.8.26.nupkg.sha512",
     "/home/rodin/.nuget/packages/microsoft.csharp/4.5.0/microsoft.csharp.4.5.0.nupkg.sha512",
     "/home/rodin/.nuget/packages/microsoft.data.sqlclient/2.1.4/microsoft.data.sqlclient.2.1.4.nupkg.sha512",
     "/home/rodin/.nuget/packages/microsoft.data.sqlclient.sni.runtime/2.1.1/microsoft.data.sqlclient.sni.runtime.2.1.1.nupkg.sha512",
     "/home/rodin/.nuget/packages/microsoft.entityframeworkcore/6.0.9/microsoft.entityframeworkcore.6.0.9.nupkg.sha512",
     "/home/rodin/.nuget/packages/microsoft.entityframeworkcore.abstractions/6.0.9/microsoft.entityframeworkcore.abstractions.6.0.9.nupkg.sha512",
     "/home/rodin/.nuget/packages/microsoft.entityframeworkcore.analyzers/6.0.9/microsoft.entityframeworkcore.analyzers.6.0.9.nupkg.sha512",
+    "/home/rodin/.nuget/packages/microsoft.entityframeworkcore.design/6.0.9/microsoft.entityframeworkcore.design.6.0.9.nupkg.sha512",
     "/home/rodin/.nuget/packages/microsoft.entityframeworkcore.relational/6.0.9/microsoft.entityframeworkcore.relational.6.0.9.nupkg.sha512",
     "/home/rodin/.nuget/packages/microsoft.entityframeworkcore.sqlserver/6.0.9/microsoft.entityframeworkcore.sqlserver.6.0.9.nupkg.sha512",
     "/home/rodin/.nuget/packages/microsoft.extensions.caching.abstractions/6.0.0/microsoft.extensions.caching.abstractions.6.0.0.nupkg.sha512",
