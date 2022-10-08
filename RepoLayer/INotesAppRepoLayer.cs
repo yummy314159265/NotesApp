@@ -12,5 +12,6 @@ namespace RepoLayer
         Task<Profile> UpdateProfileAsync(Profile updatedProfile);
         Task<bool> DeleteProfileAsync(string auth0id);
         Task<Profile?> CreateProfileAsync(CreateProfileDto request, string auth0id);
+        Task<Notebook?> CreateNotebookAsync(CreateNotebookDto request, string auth0id);
     }
 }

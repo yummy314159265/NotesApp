@@ -17,6 +17,17 @@ namespace BusinessLayer
             _repo = repo;
         }
 
+        // CRUD NOTEBOOKS
+
+        public async Task<Notebook?> CreateNotebookAsync(CreateNotebookDto request, string auth0id)
+        {
+            Notebook? createdNotebook = await this._repo.CreateNotebookAsync(request, auth0id);
+
+            return createdNotebook; 
+        }
+
+        // CRUD PROFILES
+
         public async Task<Profile?> CreateProfileAsync(CreateProfileDto request, string auth0id)
         {
             Profile? alreadyExistingProfile = await this._repo.GetProfileByUserIDAsync(auth0id);
