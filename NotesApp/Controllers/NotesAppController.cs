@@ -24,7 +24,7 @@ namespace NotesApp.Controllers
         // CRUD PROFILE
 
         [HttpPost("create-profile")]
-        public async Task<ActionResult> CreateProfileAsync(CreateProfileDto request)
+        public async Task<ActionResult<Profile?>> CreateProfileAsync(CreateProfileDto request)
         {
             if (!ModelState.IsValid)
             {
@@ -50,7 +50,7 @@ namespace NotesApp.Controllers
 
         [HttpPost("get-user-profile")]
         [AllowAnonymous]
-        public async Task<ActionResult> GetUserProfileAsync(UserIdDto request)
+        public async Task<ActionResult<Profile?>> GetUserProfileAsync(UserIdDto request)
         {
             if (!ModelState.IsValid)
             {
@@ -68,7 +68,7 @@ namespace NotesApp.Controllers
         }
         
         [HttpPut("update-profile")]
-        public async Task<ActionResult> UpdateProfileAsync(UpdateProfileDto request)
+        public async Task<ActionResult<Profile?>> UpdateProfileAsync(UpdateProfileDto request)
         {
             if (!ModelState.IsValid)
             {
@@ -93,7 +93,7 @@ namespace NotesApp.Controllers
         }
 
         [HttpDelete("delete-profile")]
-        public async Task<ActionResult> DeleteProfileAsync()
+        public async Task<ActionResult<bool>> DeleteProfileAsync()
         {
             if (ModelState.IsValid == false)
             {
@@ -120,7 +120,7 @@ namespace NotesApp.Controllers
         // CRUD NOTEBOOK
 
         [HttpPost("create-notebook")]
-        public async Task<ActionResult> CreateNotebookAsync(CreateNotebookDto request)
+        public async Task<ActionResult<Notebook?>> CreateNotebookAsync(CreateNotebookDto request)
         {
             if (ModelState.IsValid == false)
             {
@@ -145,7 +145,7 @@ namespace NotesApp.Controllers
         }
 
         [HttpPost("get-user-notebooks")]
-        public async Task<ActionResult> GetUserNotebooksAsync(UserIdDto request)
+        public async Task<ActionResult<List<Notebook>?>> GetUserNotebooksAsync(UserIdDto request)
         {
             if (!ModelState.IsValid)
             {
@@ -175,7 +175,7 @@ namespace NotesApp.Controllers
         }
 
         [HttpPut("update-notebook")]
-        public async Task<ActionResult> UpdateNotebookAsync(UpdateNotebookDto request)
+        public async Task<ActionResult<Notebook?>> UpdateNotebookAsync(UpdateNotebookDto request)
         {
             if (!ModelState.IsValid)
             {
@@ -197,6 +197,31 @@ namespace NotesApp.Controllers
             }
 
             return Ok(n);
+        }
+
+        [HttpDelete("delete-notebook")]
+        public async Task<ActionResult<bool>> DeleteNotebookAsync(IdDto request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(false);
+            }
+
+            if (User.Identity?.Name == null)
+            {
+                return Unauthorized(false);
+            }
+
+            string auth0id = User.Identity.Name;
+
+            bool deletedSuccess = await this._bus.DeleteNotebookAsync(request, auth0id);
+
+            if (deletedSuccess == false)
+            {
+                return Conflict(false);
+            }
+
+            return Ok(true);
         }
     }
 }
