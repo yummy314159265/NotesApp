@@ -116,7 +116,7 @@ namespace RepoLayer
 
         public async Task<List<Notebook>> GetUserNotebooksAsync(UserIdDto request)
         {
-            return await _context.Notebooks.Where(nb => nb.FkUserId == request.ID).ToListAsync();
+            return await _context.Notebooks.Where(nb => nb.FkUserId == request.ID).OrderByDescending(nb=> nb.DateModified).ToListAsync();
         }
 
         public async Task<Notebook?> GetNotebookByNotebookID(Guid notebookID)

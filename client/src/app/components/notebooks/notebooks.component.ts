@@ -10,6 +10,7 @@ import { NotebooksService } from 'src/app/services/notebooks/notebooks.service';
 })
 export class NotebooksComponent implements OnInit {
 
+  loading: boolean = false;
   notebooks: Notebook[] = [];
 
   constructor(
@@ -17,7 +18,8 @@ export class NotebooksComponent implements OnInit {
     private NBS: NotebooksService
   ) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
+    this.loading = true;
     this.auth.user$.subscribe(user => {
       if (user != null && user.sub != null) {
         this.getNotebooks(user.sub);
@@ -28,6 +30,7 @@ export class NotebooksComponent implements OnInit {
   getNotebooks(id: string): void {
     this.NBS.getNotebooks(id).subscribe(nb => {
       this.notebooks = nb;
+      this.loading=false;
     });
   }
 
