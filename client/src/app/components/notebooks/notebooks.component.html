@@ -6,7 +6,11 @@
     <h3>My notebooks</h3>
 </div>
 
-<div *ngIf="notebooks.length === 0" class="flex">
+<div class="flex mt-2 mb-2">
+    <mat-progress-spinner mode="indeterminate" *ngIf="loading"></mat-progress-spinner>
+</div>
+
+<div *ngIf="notebooks.length === 0 && !loading" class="flex">
     <p class="italicized">No notebooks</p>
 </div>
 

@@ -29,19 +29,20 @@ export class CreateNotebookButtonComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      
-      if (result?.name == null) {
+
+      if (result.name === '') {
         return;
       }
-
-      console.log(result.name);
 
       this.createNotebook(result.name);
     });
   }
 
   createNotebook(name: string): void {
-    this.NBS.createNotebook(name).subscribe(newNotebook => {
+
+    if (name.trim() === '') return;
+
+    this.NBS.createNotebook(name.trim()).subscribe(newNotebook => {
       this.addNewNotebook(newNotebook);
     });
   }

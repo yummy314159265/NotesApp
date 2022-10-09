@@ -2,14 +2,14 @@
     <h2 mat-dialog-title>Create a notebook</h2>
 
     <mat-dialog-content>
-        <mat-form-field appearance="fill">
+        <mat-form-field appearance="standard">
             <mat-label>Name</mat-label>
-            <input matInput placeholder="Name" [formControl]="name">
+            <input required matInput placeholder="Name" [formControl]="name">
         </mat-form-field>
     </mat-dialog-content>
 
     <mat-dialog-actions align="end">
         <button mat-button mat-dialog-close>Cancel</button>
-        <button mat-button [mat-dialog-close]="{name: name.value}">Create</button>
+        <button mat-button [mat-dialog-close]="{name: name.value?.trim()}" [disabled]="name.value?.trim()?.length === 0">Create</button>
     </mat-dialog-actions>
 </div>
