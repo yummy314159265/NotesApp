@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Models
 {
@@ -17,6 +18,7 @@ namespace Models
         public DateTime DateCreated { get; set; }
         public DateTime DateModified { get; set; }
 
+        [JsonIgnore]
         public virtual User FkUser { get; set; } = null!;
         public virtual ICollection<Note> Notes { get; set; }
     }

@@ -26,6 +26,46 @@ namespace BusinessLayer
             return createdNotebook; 
         }
 
+        public async Task<List<Notebook>?> GetUserNotebooksAsync(UserIdDto request, string auth0id)
+        {
+            User? u = await this._repo.CheckIfUserExists(request.ID);
+
+            if (u == null)
+            {
+                return null;
+            }
+
+            List<Notebook> notebooks = await this._repo.GetUserNotebooksAsync(request);
+
+            return notebooks;
+        }
+
+        public async Task<Notebook?> UpdateNotebookAsync(UpdateNotebookDto request, string auth0id)
+        {
+            Notebook? n = await this._repo.GetNotebookByNotebookID(request.NotebookID);
+
+            if (n == null)
+            {
+                return null;
+            }
+
+            if (n.FkUserId != auth0id)
+            {
+                return null;
+            }
+
+            if (request.Name == n.Name)
+            {
+                return n;
+            }
+
+            n.Name = request.Name;
+
+            Notebook? updatedN = await this._repo.UpdateNotebookAsync(n);
+
+            return updatedN;
+        }
+
         // CRUD PROFILES
 
         public async Task<Profile?> CreateProfileAsync(CreateProfileDto request, string auth0id)
