@@ -1,0 +1,3 @@
+<button mat-button color="accent" aria-label="User menu" *ngIf="auth.user$ | async as user" (click)="logout()">
+    <img class="contained" [src]="user.picture" alt="My picture" referrerpolicy="no-referrer">
+</button>
