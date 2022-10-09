@@ -1,0 +1,22 @@
+<div class="flex mt-3 mb-3">
+    <app-create-notebook-button (newNotebookEvent)="addNotebook($event)"></app-create-notebook-button>
+</div>
+
+<div class="flex">
+    <h3>My notebooks</h3>
+</div>
+
+<div *ngIf="notebooks.length === 0" class="flex">
+    <p class="italicized">No notebooks</p>
+</div>
+
+<div class="flex" *ngFor="let notebook of notebooks">
+    <mat-card class="mt-2 mb-2 card-width">
+        <mat-card-header>
+            <mat-card-title>{{notebook.name}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="text-centered">
+            <p>Notes: {{notebook.noteCount}}</p>
+        </mat-card-content>
+    </mat-card>
+</div>

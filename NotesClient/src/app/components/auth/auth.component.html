@@ -1,0 +1,11 @@
+<div class="button-container">
+
+    <app-login-button></app-login-button>
+
+    <span *ngIf="(auth.isAuthenticated$ | async) === false"> / </span>
+
+    <app-signup-button></app-signup-button>
+
+    <app-user-button></app-user-button>
+
+</div>
