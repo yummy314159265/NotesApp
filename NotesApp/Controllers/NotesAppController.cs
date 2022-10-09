@@ -21,6 +21,11 @@ namespace NotesApp.Controllers
             this._bus = bus;
         }
 
+
+
+
+
+
         // CRUD PROFILE
 
         [HttpPost("create-profile")]
@@ -116,6 +121,10 @@ namespace NotesApp.Controllers
 
             return Ok(true);
         }
+
+
+
+
 
         // CRUD NOTEBOOK
 

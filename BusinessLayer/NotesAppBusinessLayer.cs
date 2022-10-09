@@ -17,6 +17,10 @@ namespace BusinessLayer
             _repo = repo;
         }
 
+
+
+        
+
         // CRUD PROFILES
 
         public async Task<Profile?> CreateProfileAsync(CreateProfileDto request, string auth0id)
@@ -88,6 +92,10 @@ namespace BusinessLayer
 
             return await this._repo.UpdateProfileAsync(updatedProfile);
         }
+
+
+
+
 
         // CRUD NOTEBOOKS
 
