@@ -17,6 +17,7 @@ namespace BusinessLayer
         Task<Notebook?> CreateNotebookAsync(CreateNotebookDto request, string auth0id);
         Task<List<Notebook>?> GetUserNotebooksAsync(UserIdDto request, string auth0id);
         Task<Notebook?> UpdateNotebookAsync(UpdateNotebookDto request, string auth0id);
+        Task<bool> DeleteNotebookAsync(IdDto request, string auth0id);
 
         // CRUD Notebooks
     }

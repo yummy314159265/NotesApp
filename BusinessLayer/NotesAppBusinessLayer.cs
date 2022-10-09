@@ -17,54 +17,9 @@ namespace BusinessLayer
             _repo = repo;
         }
 
-        // CRUD NOTEBOOKS
 
-        public async Task<Notebook?> CreateNotebookAsync(CreateNotebookDto request, string auth0id)
-        {
-            Notebook? createdNotebook = await this._repo.CreateNotebookAsync(request, auth0id);
 
-            return createdNotebook; 
-        }
-
-        public async Task<List<Notebook>?> GetUserNotebooksAsync(UserIdDto request, string auth0id)
-        {
-            User? u = await this._repo.CheckIfUserExists(request.ID);
-
-            if (u == null)
-            {
-                return null;
-            }
-
-            List<Notebook> notebooks = await this._repo.GetUserNotebooksAsync(request);
-
-            return notebooks;
-        }
-
-        public async Task<Notebook?> UpdateNotebookAsync(UpdateNotebookDto request, string auth0id)
-        {
-            Notebook? n = await this._repo.GetNotebookByNotebookID(request.NotebookID);
-
-            if (n == null)
-            {
-                return null;
-            }
-
-            if (n.FkUserId != auth0id)
-            {
-                return null;
-            }
-
-            if (request.Name == n.Name)
-            {
-                return n;
-            }
-
-            n.Name = request.Name;
-
-            Notebook? updatedN = await this._repo.UpdateNotebookAsync(n);
-
-            return updatedN;
-        }
+        
 
         // CRUD PROFILES
 
@@ -86,7 +41,7 @@ namespace BusinessLayer
         {
             Profile? p = await this._repo.GetProfileByUserIDAsync(auth0id);
 
-            if (p == null)
+            if (p == null || p.FkUserId != auth0id)
             {
                 return false;
             }
@@ -137,5 +92,73 @@ namespace BusinessLayer
 
             return await this._repo.UpdateProfileAsync(updatedProfile);
         }
+
+
+
+
+
+        // CRUD NOTEBOOKS
+
+        public async Task<Notebook?> CreateNotebookAsync(CreateNotebookDto request, string auth0id)
+        {
+            Notebook? createdNotebook = await this._repo.CreateNotebookAsync(request, auth0id);
+
+            return createdNotebook; 
+        }
+
+        public async Task<List<Notebook>?> GetUserNotebooksAsync(UserIdDto request, string auth0id)
+        {
+            User? u = await this._repo.CheckIfUserExists(request.ID);
+
+            if (u == null)
+            {
+                return null;
+            }
+
+            List<Notebook> notebooks = await this._repo.GetUserNotebooksAsync(request);
+
+            return notebooks;
+        }
+
+        public async Task<Notebook?> UpdateNotebookAsync(UpdateNotebookDto request, string auth0id)
+        {
+            Notebook? n = await this._repo.GetNotebookByNotebookID(request.NotebookID);
+
+            if (n == null)
+            {
+                return null;
+            }
+
+            if (n.FkUserId != auth0id)
+            {
+                return null;
+            }
+
+            if (request.Name == n.Name)
+            {
+                return n;
+            }
+
+            n.Name = request.Name;
+
+            Notebook? updatedN = await this._repo.UpdateNotebookAsync(n);
+
+            return updatedN;
+        }
+
+        public async Task<bool> DeleteNotebookAsync(IdDto request, string auth0id)
+        {
+            Notebook? n = await this._repo.GetNotebookByNotebookID(request.guid);
+
+            if (n == null || n.FkUserId != auth0id)
+            {
+                return false;
+            }
+
+            bool deletedSuccess = await this._repo.DeleteNotebookAsync(request.guid);
+
+            return deletedSuccess;
+        }
+
     }
 }
