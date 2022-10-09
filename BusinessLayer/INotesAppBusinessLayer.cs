@@ -15,6 +15,8 @@ namespace BusinessLayer
         Task<bool> DeleteProfileAsync(string auth0id);
         Task<Profile?> CreateProfileAsync(CreateProfileDto request, string auth0id);
         Task<Notebook?> CreateNotebookAsync(CreateNotebookDto request, string auth0id);
+        Task<List<Notebook>?> GetUserNotebooksAsync(UserIdDto request, string auth0id);
+        Task<Notebook?> UpdateNotebookAsync(UpdateNotebookDto request, string auth0id);
 
         // CRUD Notebooks
     }

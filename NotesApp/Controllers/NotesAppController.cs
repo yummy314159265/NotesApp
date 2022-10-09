@@ -28,12 +28,12 @@ namespace NotesApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(request);
+                return BadRequest();
             }
 
             if (User.Identity?.Name == null)
             {
-                return Unauthorized(request);
+                return Unauthorized();
             }
 
             string auth0id = User.Identity.Name;
@@ -42,7 +42,7 @@ namespace NotesApp.Controllers
 
             if (p == null)
             {
-                return Conflict(request);
+                return Conflict();
             }
 
             return Created("", p);
@@ -54,14 +54,14 @@ namespace NotesApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(request);
+                return BadRequest();
             }
 
             Profile? p = await this._bus.GetUserProfileAsync(request);
             
             if (p == null)
             {
-                return NotFound(new UserIdNotFoundDto(request.ID));
+                return NotFound();
             }
 
             return Ok(p);
@@ -72,12 +72,12 @@ namespace NotesApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return BadRequest(request);
+                return BadRequest();
             }
 
             if (User.Identity?.Name == null)
             {
-                return Unauthorized(request);
+                return Unauthorized();
             }
 
             string auth0id = User.Identity.Name;
@@ -86,7 +86,7 @@ namespace NotesApp.Controllers
 
             if (p != null)
             {
-                return Conflict(request);
+                return Conflict();
             }
 
             return Ok(p);
@@ -124,12 +124,12 @@ namespace NotesApp.Controllers
         {
             if (ModelState.IsValid == false)
             {
-                return BadRequest(request);
+                return BadRequest();
             }
 
             if (User.Identity?.Name == null)
             {
-                return Unauthorized(request);
+                return Unauthorized();
             }
 
             string auth0id = User.Identity.Name;
@@ -138,10 +138,65 @@ namespace NotesApp.Controllers
 
             if (n == null)
             {
-                return Conflict (request);
+                return Conflict ();
             }
 
             return Created("", n);
+        }
+
+        [HttpPost("get-user-notebooks")]
+        public async Task<ActionResult> GetUserNotebooksAsync(UserIdDto request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            if (User.Identity?.Name == null)
+            {
+                return Unauthorized();
+            }
+
+            string auth0id = User.Identity.Name;
+
+            if (request.ID != auth0id)
+            {
+                return Unauthorized();
+            }
+
+            List<Notebook>? notebooks = await this._bus.GetUserNotebooksAsync(request, auth0id);
+
+            if(notebooks == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(notebooks);
+        }
+
+        [HttpPut("update-notebook")]
+        public async Task<ActionResult> UpdateNotebookAsync(UpdateNotebookDto request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            if (User.Identity?.Name == null)
+            {
+                return Unauthorized();
+            }
+
+            string auth0id = User.Identity.Name;
+
+            Notebook? n = await this._bus.UpdateNotebookAsync(request, auth0id);
+
+            if (n == null)
+            {
+                return Conflict();
+            }
+
+            return Ok(n);
         }
     }
 }

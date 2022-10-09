@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Models
 {
@@ -12,6 +13,7 @@ namespace Models
         public string? Picture { get; set; }
         public string? Nickname { get; set; }
 
+        [JsonIgnore]
         public virtual User FkUser { get; set; } = null!;
     }
 }
