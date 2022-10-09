@@ -143,5 +143,60 @@ namespace NotesApp.Controllers
 
             return Created("", n);
         }
+
+        [HttpPost("get-user-notebooks")]
+        public async Task<ActionResult> GetUserNotebooksAsync(UserIdDto request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(request);
+            }
+
+            if (User.Identity?.Name == null)
+            {
+                return Unauthorized(request);
+            }
+
+            string auth0id = User.Identity.Name;
+
+            if (request.ID != auth0id)
+            {
+                return Unauthorized(request);
+            }
+
+            List<Notebook>? notebooks = await this._bus.GetUserNotebooksAsync(request, auth0id);
+
+            if(notebooks == null)
+            {
+                return NotFound(request);
+            }
+
+            return Ok(notebooks);
+        }
+
+        [HttpPut("update-notebook")]
+        public async Task<ActionResult> UpdateNotebookAsync(UpdateNotebookDto request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(request);
+            }
+
+            if (User.Identity?.Name == null)
+            {
+                return Unauthorized(request);
+            }
+
+            string auth0id = User.Identity.Name;
+
+            Notebook? n = await this._bus.UpdateNotebookAsync(request, auth0id);
+
+            if (n == null)
+            {
+                return Conflict(request);
+            }
+
+            return Ok(n);
+        }
     }
 }

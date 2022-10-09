@@ -20,6 +20,13 @@ namespace RepoLayer
             _context = context;
         }
 
+        // CRUD USER
+
+        public async Task<User?> CheckIfUserExists(string auth0id)
+        {
+            return await _context.Users.SingleOrDefaultAsync(user => user.UserId == auth0id);
+        }
+
         // CRUD NOTEBOOK
 
         public async Task<Notebook?> CreateNotebookAsync(CreateNotebookDto request, string auth0id)
@@ -42,6 +49,32 @@ namespace RepoLayer
             }
 
             return n;
+        }
+
+        public async Task<List<Notebook>> GetUserNotebooksAsync(UserIdDto request)
+        {
+            return await _context.Notebooks.Where(nb => nb.FkUserId == request.ID).ToListAsync();
+        }
+
+        public async Task<Notebook?> GetNotebookByNotebookID(Guid notebookID)
+        {
+            return await _context.Notebooks.SingleOrDefaultAsync(nb => nb.NotebookId == notebookID);
+        }
+
+        public async Task<Notebook?> UpdateNotebookAsync(Notebook n)
+        {
+            Notebook currentNotebook = await _context.Notebooks.SingleAsync(nb => nb.NotebookId == n.NotebookId);
+
+            currentNotebook.Name = n.Name;
+
+            int ret = await _context.SaveChangesAsync();
+
+            if(ret == 0)
+            {
+                return null;
+            }
+
+            return currentNotebook;
         }
 
         // CRUD PROFILE
@@ -97,5 +130,7 @@ namespace RepoLayer
 
             return updatedProfile;
         }
+
+
     }
 }
