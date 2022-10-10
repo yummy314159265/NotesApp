@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RepoLayer", "RepoLayer\Repo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{25D47DE0-120F-41BC-B1F9-3C1B0DA58867}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.NotesApp", "Tests.NotesApp\Tests.NotesApp.csproj", "{1DF4EAC3-E9ED-4710-A8B5-6D0E1AF4469B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{25D47DE0-120F-41BC-B1F9-3C1B0DA58867}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{25D47DE0-120F-41BC-B1F9-3C1B0DA58867}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{25D47DE0-120F-41BC-B1F9-3C1B0DA58867}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DF4EAC3-E9ED-4710-A8B5-6D0E1AF4469B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DF4EAC3-E9ED-4710-A8B5-6D0E1AF4469B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DF4EAC3-E9ED-4710-A8B5-6D0E1AF4469B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DF4EAC3-E9ED-4710-A8B5-6D0E1AF4469B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

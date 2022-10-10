@@ -150,5 +150,27 @@ namespace RepoLayer
 
             return (ret > 0);
         }
+
+        public async Task<Note?> CreateNotebookAsync(CreateNoteDto request)
+        {
+            Note n = new Note()
+            {
+                FkNotebookId = request.Fk_notebookID,
+                Title = request.Title,
+                Type = request.Type,
+                Content = request.Content
+            };
+
+            await _context.Notes.AddAsync(n);
+
+            int ret = await _context.SaveChangesAsync();
+
+            if (ret == 0)
+            {
+                return null;
+            }
+
+            return n;
+        }
     }
 }

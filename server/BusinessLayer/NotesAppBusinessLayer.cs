@@ -160,5 +160,25 @@ namespace BusinessLayer
             return deletedSuccess;
         }
 
+
+
+
+
+
+        // CRUD Note
+
+        public async Task<Note?> CreateNoteAsync(CreateNoteDto request, string auth0id)
+        {
+            Notebook? notebook = await this._repo.GetNotebookByNotebookID(request.Fk_notebookID);
+
+            if (notebook == null || notebook.FkUserId != auth0id)
+            {
+                return null;
+            }
+
+            Note? note = await this._repo.CreateNotebookAsync(request);
+
+            return note;
+        }
     }
 }

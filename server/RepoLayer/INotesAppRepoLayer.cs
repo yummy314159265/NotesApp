@@ -18,5 +18,6 @@ namespace RepoLayer
         Task<Notebook?> GetNotebookByNotebookID(Guid notebookID);
         Task<Notebook?> UpdateNotebookAsync(Notebook n);
         Task<bool> DeleteNotebookAsync(Guid guid);
+        Task<Note?> CreateNotebookAsync(CreateNoteDto request);
     }
 }

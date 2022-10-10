@@ -232,5 +232,36 @@ namespace NotesApp.Controllers
 
             return Ok(true);
         }
+
+
+
+
+
+        // CRUD Notes
+
+        public async Task<ActionResult<List<Note>>> CreateNoteAsync(CreateNoteDto request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
+            if (User.Identity?.Name == null)
+            {
+                return Unauthorized();
+            }
+
+            string auth0id = User.Identity.Name;
+
+            Note? n = await this._bus.CreateNoteAsync(request, auth0id);
+
+            if (n == null)
+            {
+                return Conflict();
+            }
+
+            return Ok(n);
+
+        }   
     }
 }
